@@ -1,21 +1,31 @@
 'use strict'
 
 
-if (!process.env.TOKEN) process.env.TOKEN = require('dotenv').config().parsed.TOKEN
-
-
 const config = require('./config.json')
 
-const Discord = require('discord.js')
+// Packages
 
+const express = require('express')
+const http = require('http')
+const Discord = require('discord.js')
 const CMDManager = require('./CMDManager')
 
-const client = new Discord.Client()
+
+// Consts
+
+const PORT  = process.env.PORT  || 3000
+const TOKEN = process.env.TOKEN || require('dotenv').config().parsed.TOKEN
+
+const app = express()
+const server = http.createServer(app)
+const bot = new Discord.Client()
 
 
-client.on('ready', () =>
+// Bot listeners
+
+bot.on('ready', () =>
 {
-	client.user.setPresence({
+	bot.user.setPresence({
 		activity: {
 			type: 'WATCHING',
 			name: 'Peaky Blinders',
@@ -24,29 +34,21 @@ client.on('ready', () =>
 		status: 'online'
 	});
 	
-	client.user.setUsername('Tiamat');
-
+	bot.user.setUsername('Tiamat');
 	CMDManager.listen(config.PREFIX, './commands/')
 
-	console.log(`Logged in as ${ client.user.tag }!`)
+	console.log(`Logged in as ${ bot.user.tag }!`)
 })
 
-client.on('message', msg =>
+bot.on('message', msg =>
 {
 	if (msg.author.bot) return
-
 	if (CMDManager.handleIt(msg)) return
-
-	// if (msg.type === 'PINS_ADD')
-	// {
-	// 	msg.channel.messages.fetch(msg.reference.messageID).then(pinnedMsg =>
-	// 	{
-	// 		// do whatever with pinnedMsg
-	// 	})
-	// 	.catch(console.log)
-	// }
-
-	/* do something else if it's not a command? */
 })
 
-client.login(process.env.TOKEN);
+
+// Serve
+
+app.use(express.static('public'))
+server.listen(PORT)
+bot.login(TOKEN);
