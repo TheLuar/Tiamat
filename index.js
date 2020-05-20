@@ -26,12 +26,12 @@ const bot = new Discord.Client()
 bot.on('ready', () =>
 {
 	bot.user.setPresence({
+		status: 'online',
 		activity: {
 			type: 'WATCHING',
 			name: 'Peaky Blinders',
 			url: 'https://discordapp.com/',
-		},
-		status: 'online'
+		}
 	});
 	
 	bot.user.setUsername('Tiamat');
