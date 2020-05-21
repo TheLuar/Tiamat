@@ -1,8 +1,6 @@
 'use strict'
 
 
-const config = require('./config.json')
-
 // Packages
 
 const express = require('express')
@@ -11,10 +9,13 @@ const Discord = require('discord.js')
 const CMDManager = require('./CMDManager')
 
 
-// Consts
+// General
 
-const PORT  = process.env.PORT  || 3000
-const TOKEN = process.env.TOKEN || require('dotenv').config().parsed.TOKEN
+const localy = require('os').hostname() === 'RAUL'
+
+const PREFIX = process.env.PREFIX || localy ? '--' : '++'
+const PORT   = process.env.PORT   || 3000
+const TOKEN  = process.env.TOKEN  || require('dotenv').config().parsed.TOKEN
 
 const app = express()
 const server = http.createServer(app)
@@ -35,9 +36,9 @@ bot.on('ready', () =>
 	});
 	
 	bot.user.setUsername('Tiamat');
-	CMDManager.listen(config.PREFIX, './commands/')
+	CMDManager.listen(PREFIX, './commands/')
 
-	console.log(`Logged in as ${ bot.user.tag }!`)
+	console.log(`Logged in as ${ bot.user.tag }!\nPrefix: ${ PREFIX }`)
 })
 
 bot.on('message', msg =>

@@ -100,7 +100,7 @@ module.exports = {
 		)
 	},
 
-	extract ({ content }, commas=false)
+	extract ({ content })
 	{
 		const inputs = content
 			.slice(_prefix.length)

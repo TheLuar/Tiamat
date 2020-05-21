@@ -18,6 +18,8 @@ const operators = Object.keys(operations)
 const functions = ['hypot', 'tan', 'atan', 'atan2', 'atanh', 'sin', 'asin', 'asinh', 'cos', 'acos', 'acosh', 'log', 'sqrt', 'cbrt', 'random', 'round', 'ceil', 'floor']
 
 const consts = {
+	true: 1,
+	false: 0,
 	π: Math.PI,
 	pi: Math.PI,
 	e: Math.E,
