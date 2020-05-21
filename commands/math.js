@@ -91,7 +91,7 @@ const parseVars = input =>
 		const p = '(^|\s|[^a-z0-9])'
 		const s = '($|\s|[^a-z0-9])'
 		const re = new RegExp(p + con + s, 'ig')
-		input = input.replace(re, '$1' + vars[con] + '$2')
+		while (re.test(input)) input = input.replace(re, '$1' + vars[con] + '$2')
 	}
 	return input
 }
