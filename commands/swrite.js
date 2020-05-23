@@ -12,6 +12,7 @@ const txt2bin = str => str.split('').map(c => c.charCodeAt(0).toString(2)).join(
 
 module.exports = (msg, args=[]) =>
 {
+	return
 	if (!msg.attachments || !args.length) return
 
 	const msgBin = txt2bin(args.join(' '))

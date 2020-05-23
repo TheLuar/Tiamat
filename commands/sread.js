@@ -9,6 +9,7 @@ const bin2txt = bin => bin.match(/\d{7}/g).map(b => String.fromCharCode(parseInt
 
 module.exports = (msg, args=[]) =>
 {
+	return
 	if (!msg.attachments) return
 
 	const attachment = msg.attachments.array()[0]
